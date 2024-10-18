@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book Library</title>
     <link rel="stylesheet" href="index.css" />
-    <!-- Link to your custom CSS -->
-    <!-- You can use Bootstrap or Tailwind for styling if needed -->
   </head>
   <body>
     <!-- Navbar -->
@@ -18,7 +16,6 @@
       </ul>
     </nav>
 
-    <!-- Search Bar and Genre Filter -->
     <section>
       <input
         type="text"
@@ -27,25 +24,19 @@
       />
       <select id="genre-filter">
         <option value="">Select Genre</option>
-        <!-- Add options dynamically from the API -->
       </select>
     </section>
 
-    <!-- Books List -->
-    <section id="books-list">
-      <!-- Books will be displayed here dynamically -->
-    </section>
+    <!-- Books will be displayed here dynamically -->
+    <section id="books-list"></section>
 
     <!-- Pagination Controls -->
     <section id="pagination">
       <button id="prev-page">Previous</button>
-      <div id="page-numbers">
-        <!-- Page numbers will be displayed dynamically -->
-      </div>
+      <div id="page-numbers"></div>
       <button id="next-page">Next</button>
     </section>
 
-    <!-- JavaScript for handling API fetch, search, filtering, and pagination -->
     <script src="./index.js"></script>
   </body>
 </html>
