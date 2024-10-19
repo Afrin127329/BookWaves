@@ -33,16 +33,13 @@ section {
   padding: 2rem;
 }
 
-
-.wishlist-btn {
-  cursor: pointer;
-}
-
-.wishlist-btn.wishlisted {
-  color: red;
-}
-
 /* Loading animation */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .loader {
   width: 48px;
   height: 48px;
