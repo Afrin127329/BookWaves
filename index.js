@@ -38,12 +38,33 @@ document.addEventListener("DOMContentLoaded", () => {
       const bookElement = document.createElement("div");
       bookElement.classList.add("book");
       bookElement.innerHTML = `
-     <img src="${bookCoverUrl}" alt="Book Cover of ${bookTitle}">
-      <h3>${bookTitle}</h3>
-      <p><strong>Author(s):</strong> ${bookAuthors}</p>
-      <p><strong>Genres:</strong> ${bookGenres}</p>
-      <p><strong>ID:</strong> ${book.id}</p>
-        <button class="wishlist-btn" data-id="${book.id}">♡ Wishlist</button>
+            <div class="card">
+      <a href="#">
+        <img
+          class="card-img"
+          src="${bookCoverUrl}"
+          alt="Book Cover of ${bookTitle}"
+        />
+      </a>
+      <div class="card-content">
+        <h5 class="card-title">${bookTitle}</h5> 
+         <p><strong>ID:</strong> ${book.id}</p>
+        <h5 class="card-text"><strong>Author(s):</strong> ${bookAuthors}</h5>
+    
+        <p class="card-text">
+       <strong>Genres:</strong> ${bookGenres}
+        </p>
+        <button class="cssbuttons-io" data-id="${book.id}">
+          <span>
+            Wishlist
+            <img
+              class="wishlist-img"
+              src="./assets/white-love.png"
+              alt="Wishlist icon"
+          /></span>
+        </button>
+      </div>
+    </div>
       `;
       booksList.appendChild(bookElement);
     });
