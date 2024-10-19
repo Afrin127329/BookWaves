@@ -36,20 +36,22 @@ document.addEventListener("DOMContentLoaded", () => {
         ? book.subjects.join(", ")
         : "Unknown Genre";
       const bookElement = document.createElement("div");
-      bookElement.classList.add("book");
       bookElement.innerHTML = `
             <div class="card">
-      <a href="#">
+      <div class="card-img-container">
         <img
           class="card-img"
           src="${bookCoverUrl}"
           alt="Book Cover of ${bookTitle}"
         />
-      </a>
+      </div>
       <div class="card-content">
         <h5 class="card-title">${bookTitle}</h5> 
-         <p><strong>ID:</strong> ${book.id}</p>
-        <h5 class="card-text"><strong>Author(s):</strong> ${bookAuthors}</h5>
+         
+        <div class="author-container">
+          <h5 class="card-text"><strong>Author(s):</strong> ${bookAuthors}</h5>
+          <p><strong>ID:</strong> ${book.id}</p>
+        </div>
     
         <p class="card-text">
        <strong>Genres:</strong> ${bookGenres}
