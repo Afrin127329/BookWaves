@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const response = await fetch(`${API_URL}?page=${page}`);
       const data = await response.json();
+      console.log(data.results);
       books = data.results;
       renderBooks(books);
       renderPagination(data.count);
@@ -36,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ? book.subjects.join(", ")
         : "Unknown Genre";
       const bookElement = document.createElement("div");
+      bookElement.classList.add("card-container");
       bookElement.innerHTML = `
             <div class="card">
       <div class="card-img-container">

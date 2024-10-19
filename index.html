@@ -8,24 +8,85 @@
   </head>
   <body>
     <!-- Navbar -->
-    <nav>
+    <!-- <nav>
       <h1>Book Library</h1>
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="wishlist.html">Wishlist</a></li>
       </ul>
-    </nav>
+    </nav> -->
 
-    <section>
-      <input
-        type="text"
-        id="search-bar"
-        placeholder="Search books by title..."
-      />
-      <select id="genre-filter">
-        <option value="">Select Genre</option>
-      </select>
-    </section>
+    <!-- <div class="nav">
+      <input type="checkbox" id="nav-check" />
+      <div class="nav-header">Book Waves</div>
+      <div class="nav-btn">
+        <label for="nav-check">
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+      </div>
+
+      <div class="nav-links">
+        <input
+          type="text"
+          id="search-bar"
+          placeholder="Search books by title..."
+        />
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+      </div>
+    </div> -->
+
+    <nav class="navbar">
+      <div class="navbar-container container">
+        <input type="checkbox" name="" id="" />
+        <div class="hamburger-lines">
+          <span class="line line1"></span>
+          <span class="line line2"></span>
+          <span class="line line3"></span>
+        </div>
+        <ul class="menu-items">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Wishlist</a></li>
+          <input
+            type="text"
+            id="search-bar"
+            placeholder="Search books by title..."
+          />
+        </ul>
+        <h1 class="logo">Book Waves</h1>
+        <section>
+          <!-- <select id="genre-filter">
+            <option value="">Select Genre</option>
+          </select> -->
+
+          <div class="dropdown">
+            <button class="dropdown-btn">
+              Dropdown
+              <svg
+                fill="#000000"
+                width="20px"
+                height="20px"
+                viewBox="-8.5 0 32 32"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.28 20.040c-0.24 0-0.44-0.080-0.6-0.24l-6.44-6.44c-0.32-0.32-0.32-0.84 0-1.2 0.32-0.32 0.84-0.32 1.2 0l5.84 5.84 5.84-5.84c0.32-0.32 0.84-0.32 1.2 0 0.32 0.32 0.32 0.84 0 1.2l-6.44 6.44c-0.16 0.16-0.4 0.24-0.6 0.24z"
+                ></path>
+              </svg>
+            </button>
+
+            <div class="dropdown-content">
+              <div>Item 1</div>
+              <div>Item 2</div>
+              <div>Item 3</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </nav>
 
     <!-- Books will be displayed here dynamically -->
     <section id="books-list" class="book-list">
