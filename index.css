@@ -61,3 +61,86 @@ section {
     background-size: 100% 3px
   }
 }
+
+/* Card container */
+.card {
+  max-width: 350px;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  /* light gray */
+  border-radius: 0.75rem;
+  /* rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* subtle shadow */
+  overflow: hidden;
+}
+
+/* Image styling */
+.card-img {
+  width: 100%;
+  height: auto;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+}
+
+/* Card content */
+.card-content {
+  padding: 20px;
+}
+
+/* Title */
+.card-title {
+  font-size: 1.5rem;
+  margin: 10px 5px;
+  font-weight: bold;
+  color: #1a202c;
+  /* dark gray for light mode */
+}
+
+/* Text content */
+.card-text {
+  margin-bottom: 15px;
+  font-size: 1rem;
+  color: #4a5568;
+  /* medium gray */
+}
+
+/* Button styling */
+.card-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+  color: white;
+  background-color: #1d4ed8;
+  /* blue */
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.card-button:hover {
+  background-color: #2563eb;
+  /* darker blue on hover */
+}
+
+.card-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.5);
+  /* blue focus ring */
+}
+
+/* Icon styling */
+.icon {
+  width: 14px;
+  height: 14px;
+  margin-left: 8px;
+  transition: transform 0.3s;
+}
+
+.card-button:hover .icon {
+  transform: translateX(4px);
+  /* move arrow on hover */
+}

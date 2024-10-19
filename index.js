@@ -26,13 +26,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const renderBooks = (books) => {
     booksList.innerHTML = "";
     books.forEach((book) => {
+      const bookCoverUrl =
+        book.formats["image/jpeg"] || "./assets/book-cover.jpg"; // Use a default cover if not available
+      const bookTitle = book.title;
+      const bookAuthors = book.authors.length
+        ? book.authors.map((author) => author.name).join(", ")
+        : "Unknown Author";
+      const bookGenres = book.subjects.length
+        ? book.subjects.join(", ")
+        : "Unknown Genre";
       const bookElement = document.createElement("div");
       bookElement.classList.add("book");
       bookElement.innerHTML = `
-        <img src=""default-cover.jpg"}" alt="${book.title}">
-        <h3>${book.title}</h3>
-        <p>Author: ${book.author}</p>
-        <p>Genre: ${book.genre || "Unknown"}</p>
+     <img src="${bookCoverUrl}" alt="Book Cover of ${bookTitle}">
+      <h3>${bookTitle}</h3>
+      <p><strong>Author(s):</strong> ${bookAuthors}</p>
+      <p><strong>Genres:</strong> ${bookGenres}</p>
+      <p><strong>ID:</strong> ${book.id}</p>
         <button class="wishlist-btn" data-id="${book.id}">♡ Wishlist</button>
       `;
       booksList.appendChild(bookElement);
