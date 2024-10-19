@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
          
         <div class="author-container">
           <h5 class="card-text"><strong>Author(s):</strong> ${bookAuthors}</h5>
-          <p><strong>ID:</strong> ${book.id}</p>
+          <p class="card-text"><strong>ID:</strong> ${book.id}</p>
         </div>
     
         <p class="card-text">

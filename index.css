@@ -33,11 +33,6 @@ section {
   padding: 2rem;
 }
 
-.book {
-  border: 1px solid #ddd;
-  padding: 1rem;
-  margin: 1rem 0;
-}
 
 .wishlist-btn {
   cursor: pointer;
@@ -49,22 +44,52 @@ section {
 
 /* Loading animation */
 .loader {
-  width: fit-content;
-  font-weight: bold;
-  font-family: sans-serif;
-  font-size: 30px;
-  padding-bottom: 8px;
-  background: linear-gradient(currentColor 0 0) 0 100%/0% 3px no-repeat;
-  animation: l2 2s linear infinite;
+  width: 48px;
+  height: 48px;
+  border: 3px dotted #0c0505;
+  border-style: solid solid dotted dotted;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  animation: rotation 2s linear infinite;
 }
 
-.loader:before {
-  content: "Loading..."
+.loader::after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 3px dotted #FF3D00;
+  border-style: solid solid dotted;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  animation: rotationBack 1s linear infinite;
+  transform-origin: center center;
 }
 
-@keyframes l2 {
-  to {
-    background-size: 100% 3px
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotationBack {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(-360deg);
   }
 }
 
@@ -79,7 +104,7 @@ section {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   color: white;
-  max-height: 21rem;
+  height: 21rem;
   margin: 2rem;
 }
 
@@ -102,6 +127,7 @@ section {
   justify-content: center;
   align-items: center;
   flex: 1;
+  overflow: hidden;
 }
 
 .card-img {
@@ -255,4 +281,25 @@ section {
 .card-button:hover .icon {
   transform: translateX(4px);
   /* move arrow on hover */
+}
+
+@media screen and (max-width: 600px) {
+  section {
+    padding: 1rem;
+  }
+
+  .card {
+    height: 100%;
+    flex-direction: column;
+    max-height: 100%;
+    margin: 1rem;
+  }
+
+  .card-img-container {
+    width: 100%;
+  }
+
+  .card-img {
+    max-height: 20rem;
+  }
 }
