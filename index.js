@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Render books to the DOM
   const renderBooks = () => {
     booksList.innerHTML = "";
+    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
     const start = (currentPage - 1) * booksPerPage;
     const end = start + booksPerPage;
     const paginatedBooks = books.slice(start, end);
@@ -52,6 +53,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const bookGenres = book.subjects.length
         ? book.subjects.join(", ")
         : "Unknown Genre";
+      const imgSrc = wishlist.includes(book.id.toString()) // Ensure id comparison is correct
+        ? "./assets/red-love.png"
+        : "./assets/white-love.png";
       const bookElement = document.createElement("div");
       bookElement.classList.add("card-container");
       bookElement.innerHTML = `
@@ -75,11 +79,11 @@ document.addEventListener("DOMContentLoaded", () => {
        <strong>Genres:</strong> ${bookGenres}
         </p>
         <button class="cssbuttons-io wishlist-btn" data-id="${book.id}">
-          <span>
+          <span id="${book.id}">
             Wishlist
             <img
               class="wishlist-img"
-              src="./assets/white-love.png"
+              src="${imgSrc}"
               alt="Wishlist icon"
           /></span>
         </button>
@@ -96,10 +100,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalPages = Math.ceil(totalBooks / booksPerPage);
     pageNumbersContainer.innerHTML = `Page ${currentPage} of ${totalPages}`;
 
-    // Disable the previous button if on the first page
+    // Disable/enable prev/next buttons
     prevPageBtn.disabled = currentPage === 1;
-
-    // Disable the next button if on the last page
     nextPageBtn.disabled = currentPage === totalPages;
 
     // Reset button event listeners
@@ -153,14 +155,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Handle wishlist toggle
   const toggleWishlist = (e) => {
-    const bookId = e.target.dataset.id;
+    const bookId = e.target.closest("button").dataset.id;
     let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    const imgElement = document.querySelector(`span[id="${bookId}"] img`);
+
+    // Check if the book is already in the wishlist
     if (wishlist.includes(bookId)) {
-      wishlist = wishlist.filter((id) => id !== bookId);
+      wishlist = wishlist.filter((id) => id !== bookId); // Remove from wishlist
+      imgElement.src = "./assets/white-love.png"; // Change to white love
     } else {
-      wishlist.push(bookId);
+      wishlist.push(bookId); // Add to wishlist
+      imgElement.src = "./assets/red-love.png"; // Change to red love
     }
+
+    // Update localStorage with new wishlist array
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
+
+    // Optionally, toggle a class for styling (if needed)
     e.target.classList.toggle("wishlisted");
   };
 
