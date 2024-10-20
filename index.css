@@ -43,6 +43,9 @@
 .menu-items {
   order: 2;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 }
 
 .logo {
@@ -566,6 +569,26 @@ section {
   .card-img {
     max-height: 20rem;
   }
+
+  .dropdown-content li {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  .menu-items {
+    justify-content: flex-start !important;
+  }
+
+  .dropdown-content {}
+
+  .navbar .menu-items {
+    align-items: baseline
+  }
+}
+
+.menu-items li {
+  margin-left: 0 !important;
+  width: 100%;
 }
 
 .card-container {
@@ -587,7 +610,6 @@ section {
   transition: .3s;
   border: 0;
   background: linear-gradient(to right, #8e2de2, #4a00e0);
-  ;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -612,6 +634,7 @@ section {
   width: 100%;
   font-family: sans-serif;
   cursor: pointer;
+  width: auto;
 }
 
 .dropdown-content li {
