@@ -3,43 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Book Library</title>
+    <title>Book Waves</title>
     <link rel="stylesheet" href="index.css" />
+    <!-- For footer icons  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
     <!-- Navbar -->
-    <!-- <nav>
-      <h1>Book Library</h1>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="wishlist.html">Wishlist</a></li>
-      </ul>
-    </nav> -->
-
-    <!-- <div class="nav">
-      <input type="checkbox" id="nav-check" />
-      <div class="nav-header">Book Waves</div>
-      <div class="nav-btn">
-        <label for="nav-check">
-          <span></span>
-          <span></span>
-          <span></span>
-        </label>
-      </div>
-
-      <div class="nav-links">
-        <input
-          type="text"
-          id="search-bar"
-          placeholder="Search books by title..."
-        />
-        <a href="#">Link 1</a>
-        <a href="#">Link 2</a>
-      </div>
-    </div> -->
-
     <nav class="navbar">
-      <div class="navbar-container container">
+      <li class="navbar-container container">
         <input type="checkbox" name="" id="" />
         <div class="hamburger-lines">
           <span class="line line1"></span>
@@ -47,57 +19,83 @@
           <span class="line line3"></span>
         </div>
         <ul class="menu-items">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Wishlist</a></li>
-          <input
-            type="text"
-            id="search-bar"
-            placeholder="Search books by title..."
-          />
-        </ul>
-        <h1 class="logo">Book Waves</h1>
-        <section id="genre-filter">
-          <div class="dropdown">
-            <button class="dropdown-btn">
-              Genres
-              <svg
-                fill="#000000"
-                width="20px"
-                height="20px"
-                viewBox="-8.5 0 32 32"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7.28 20.040c-0.24 0-0.44-0.080-0.6-0.24l-6.44-6.44c-0.32-0.32-0.32-0.84 0-1.2 0.32-0.32 0.84-0.32 1.2 0l5.84 5.84 5.84-5.84c0.32-0.32 0.84-0.32 1.2 0 0.32 0.32 0.32 0.84 0 1.2l-6.44 6.44c-0.16 0.16-0.4 0.24-0.6 0.24z"
-                ></path>
-              </svg>
-            </button>
+          <li><a href="/">Home</a></li>
+          <li><a href="/wishlist.html">Wishlist</a></li>
+          <div id="genre-filter">
+            <div class="dropdown">
+              <button class="dropdown-btn">
+                Genres
+                <svg
+                  fill="#000000"
+                  width="20px"
+                  height="20px"
+                  viewBox="-8.5 0 32 32"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.28 20.040c-0.24 0-0.44-0.080-0.6-0.24l-6.44-6.44c-0.32-0.32-0.32-0.84 0-1.2 0.32-0.32 0.84-0.32 1.2 0l5.84 5.84 5.84-5.84c0.32-0.32 0.84-0.32 1.2 0 0.32 0.32 0.32 0.84 0 1.2l-6.44 6.44c-0.16 0.16-0.4 0.24-0.6 0.24z"
+                  ></path>
+                </svg>
+              </button>
 
-            <div class="dropdown-content">
-              <div>Item 1</div>
-              <div>Item 2</div>
-              <div>Item 3</div>
+              <div class="dropdown-content"  id="genre-dropdown"></div>
             </div>
           </div>
-        </section>
+
+          <li class="search-bar-container">
+            <input
+              type="text"
+              id="search-bar"
+              placeholder="Search books by title..."
+            />
+          </li>
+        </ul>
+        <h1 class="logo">Book Waves</h1>
       </div>
     </nav>
 
+    <section class="heading">
+      <h2><span>All Books </span></h2>
+    </section>
+
     <!-- Books will be displayed here dynamically -->
     <section id="books-list" class="book-list">
-      <div class="loading">
+      <div class="loading" id="loading">
         <div class="loader"></div>
       </div>
     </section>
 
     <!-- Pagination Controls -->
-    <section id="pagination">
+    <section id="pagination" class="pagination">
       <button id="prev-page">Previous</button>
       <div id="page-numbers"></div>
       <button id="next-page">Next</button>
     </section>
 
+    <!-- Footer  -->
+    <footer>
+      <div class="footer-content">
+          <h3>Book Waves</h3>
+          <p>This book showcase website, developed by Afrin Nahar, allows users to explore a wide range of books easily. It includes filters for searching by title, author, and genre, along with a wishlist feature for saving favorite books. The site offers a simple and user-friendly experience for book lovers.</p>
+          <ul class="socials">
+              <li><a href="https://www.facebook.com/afrin4me/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="https://x.com/AfrinNahar10" target="_blank"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="https://www.instagram.com/afrinxnahar/" target="_blank"> <i class="fa fa-brands fa-instagram"></i></a></li>
+              <li><a href="https://github.com/Afrin127329" target="_blank"><i class="fa fa-brands fa-github"></i></a></li>
+          </ul>
+      </div>
+      <div class="footer-bottom">
+          <p>copyright &copy; <a href="https://my-portfolio-react-teal.vercel.app/" target="_blank">Afrin Nahar - Software Developer</a>  </p>
+                  <div class="footer-menu">
+                    <ul class="f-menu">
+                      <li><a href="/">Home</a></li>
+                      <li><a href="/wishlist.html">Wishlist</a></li>
+                    </ul>
+                  </div>
+      </div>
+
+  </footer>
     <script src="./index.js"></script>
   </body>
 </html>
