@@ -8,27 +8,45 @@ document.addEventListener("DOMContentLoaded", () => {
   const genreFilter = document.getElementById("genre-filter");
   const booksList = document.getElementById("books-list");
   const pagination = document.getElementById("pagination");
+  const prevPageBtn = document.getElementById("prev-page");
+  const nextPageBtn = document.getElementById("next-page");
+  const pageNumbersContainer = document.getElementById("page-numbers");
+  const loader = document.getElementById("loading");
 
-  // Fetch and display books
+  // Fetch and store books in localStorage
   const fetchBooks = async (page = 1) => {
     try {
-      const response = await fetch(`${API_URL}?page=${page}`);
-      const data = await response.json();
-      console.log(data.results);
-      books = data.results;
-      renderBooks(books);
-      renderPagination(data.count);
+      if (localStorage.getItem("books")) {
+        books = JSON.parse(localStorage.getItem("books"));
+        renderBooks();
+        renderPagination(books.length);
+      } else {
+        const response = await fetch(`${API_URL}?page=${page}`);
+        const data = await response.json();
+        books = data.results;
+        localStorage.setItem("books", JSON.stringify(books));
+        renderBooks();
+        renderPagination(books.length);
+      }
     } catch (error) {
       console.error("Error fetching books:", error);
     }
   };
 
   // Render books to the DOM
-  const renderBooks = (books) => {
+  const renderBooks = () => {
+    console.log("called");
     booksList.innerHTML = "";
-    books.forEach((book) => {
+    const start = (currentPage - 1) * booksPerPage;
+    const end = start + booksPerPage;
+    console.log(books);
+    console.log(start, end);
+    const paginatedBooks = books.slice(start, end);
+    console.log(paginatedBooks);
+
+    paginatedBooks.forEach((book) => {
       const bookCoverUrl =
-        book.formats["image/jpeg"] || "./assets/book-cover.jpg"; // Use a default cover if not available
+        book.formats["image/jpeg"] || "./assets/book-cover.jpg";
       const bookTitle = book.title;
       const bookAuthors = book.authors.length
         ? book.authors.map((author) => author.name).join(", ")
@@ -58,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <p class="card-text">
        <strong>Genres:</strong> ${bookGenres}
         </p>
-        <button class="cssbuttons-io" data-id="${book.id}">
+        <button class="cssbuttons-io wishlist-btn" data-id="${book.id}">
           <span>
             Wishlist
             <img
@@ -72,32 +90,55 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
       booksList.appendChild(bookElement);
     });
-    // Attach event listeners to wishlist buttons
-    document.querySelectorAll(".wishlist-btn").forEach((btn) => {
-      btn.addEventListener("click", toggleWishlist);
+    attachWishlistEvents();
+  };
+
+  // Render pagination controls
+  const renderPagination = (totalBooks) => {
+    const totalPages = Math.ceil(totalBooks / booksPerPage);
+    pageNumbersContainer.innerHTML = `Page ${currentPage} of ${totalPages}`;
+
+    prevPageBtn.disabled = currentPage === 1;
+    nextPageBtn.disabled = currentPage === totalPages;
+
+    const newPrevPageBtn = prevPageBtn.cloneNode(true);
+    const newNextPageBtn = nextPageBtn.cloneNode(true);
+
+    prevPageBtn.replaceWith(newPrevPageBtn);
+    nextPageBtn.replaceWith(newNextPageBtn);
+
+    newPrevPageBtn.addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderBooks();
+        renderPagination(books.length);
+      }
+    });
+
+    newNextPageBtn.addEventListener("click", () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderBooks();
+        renderPagination(books.length);
+      }
     });
   };
 
-  // Handle pagination rendering
-  const renderPagination = (totalBooks) => {
-    const totalPages = Math.ceil(totalBooks / booksPerPage);
-  };
-
-  // Handle search functionality
+  // Handle search functionality (from localStorage)
   searchInput.addEventListener("input", (e) => {
-    const filteredBooks = books.filter((book) =>
-      book.title.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-    renderBooks(filteredBooks);
-  });
+    const searchTerm = e.target.value.toLowerCase();
 
-  // Handle genre filtering
-  genreFilter.addEventListener("change", (e) => {
-    const filteredBooks = books.filter(
-      (book) =>
-        book.genre && book.genre.toLowerCase() === e.target.value.toLowerCase()
+    // Filter books from localStorage
+    const allBooks = JSON.parse(localStorage.getItem("books"));
+    const filteredBooks = allBooks.filter((book) =>
+      book.title.toLowerCase().includes(searchTerm)
     );
-    renderBooks(filteredBooks);
+
+    // Update book list
+    books = filteredBooks;
+    currentPage = 1;
+    renderBooks();
+    renderPagination(books.length);
   });
 
   // Handle wishlist toggle
@@ -113,7 +154,14 @@ document.addEventListener("DOMContentLoaded", () => {
     e.target.classList.toggle("wishlisted");
   };
 
-  // Initial book fetch
+  // Attach event listeners to wishlist buttons
+  const attachWishlistEvents = () => {
+    document.querySelectorAll(".wishlist-btn").forEach((btn) => {
+      btn.addEventListener("click", toggleWishlist);
+    });
+  };
+
+  // Initial book fetch or load from localStorage
   fetchBooks(currentPage);
 });
 
@@ -145,5 +193,3 @@ dropdown.forEach((item) => {
     item.closest(".dropdown").classList.toggle("active");
   });
 });
-
-// search btn logic
