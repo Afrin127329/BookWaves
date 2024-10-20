@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         books = JSON.parse(localStorage.getItem("books"));
         renderBooks();
         renderPagination(books.length);
+        populateGenres(books[0].subjects);
       } else {
         const response = await fetch(`${API_URL}?page=${page}`);
         const data = await response.json();
@@ -27,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("books", JSON.stringify(books));
         renderBooks();
         renderPagination(books.length);
+        populateGenres(books[0].subjects);
       }
     } catch (error) {
       console.error("Error fetching books:", error);
@@ -35,14 +37,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Render books to the DOM
   const renderBooks = () => {
-    console.log("called");
     booksList.innerHTML = "";
     const start = (currentPage - 1) * booksPerPage;
     const end = start + booksPerPage;
-    console.log(books);
-    console.log(start, end);
     const paginatedBooks = books.slice(start, end);
-    console.log(paginatedBooks);
 
     paginatedBooks.forEach((book) => {
       const bookCoverUrl =
@@ -137,9 +135,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Filter books from localStorage
     const allBooks = JSON.parse(localStorage.getItem("books"));
-    const filteredBooks = allBooks.filter((book) =>
-      book.title.toLowerCase().includes(searchTerm)
-    );
+    const regex = new RegExp(searchTerm, "i");
+    const filteredBooks = allBooks.filter((book) => {
+      return (
+        regex.test(book.title) ||
+        book.authors.some((author) => regex.test(author.name)) ||
+        book.subjects.some((subject) => regex.test(subject))
+      );
+    });
 
     // Update book list
     books = filteredBooks;
@@ -200,3 +203,15 @@ dropdown.forEach((item) => {
     item.closest(".dropdown").classList.toggle("active");
   });
 });
+
+const populateGenres = (genres) => {
+  const genreDropdown = document.getElementById("genre-dropdown");
+  genreDropdown.innerHTML = ""; // Clear previous items
+
+  // Create and append genre items to the dropdown
+  genres.forEach((genre) => {
+    const listItem = document.createElement("li");
+    listItem.textContent = genre; // Set the genre text
+    genreDropdown.appendChild(listItem);
+  });
+};
