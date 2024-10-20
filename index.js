@@ -116,3 +116,32 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initial book fetch
   fetchBooks(currentPage);
 });
+
+const dropdown = document.querySelectorAll(".dropdown-btn");
+
+// Обработчик события клика на документе
+document.addEventListener("click", (e) => {
+  // Проверяем, было ли нажатие вне элемента выпадающего списка
+  if (!e.target.closest(".dropdown-btn")) {
+    // Закрываем все выпадающие списки
+    dropdown.forEach((item) => {
+      item.closest(".dropdown").classList.remove("active");
+    });
+  }
+});
+
+dropdown.forEach((item) => {
+  item.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    // Закрываем все другие выпадающие списки
+    dropdown.forEach((otherItem) => {
+      if (otherItem !== item) {
+        otherItem.closest(".dropdown").classList.remove("active");
+      }
+    });
+
+    // Открываем/закрываем текущий выпадающий список
+    item.closest(".dropdown").classList.toggle("active");
+  });
+});
