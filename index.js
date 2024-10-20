@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const response = await fetch(`${API_URL}?page=${page}`);
       const data = await response.json();
+      console.log(data.results);
       books = data.results;
       renderBooks(books);
       renderPagination(data.count);
@@ -26,14 +27,48 @@ document.addEventListener("DOMContentLoaded", () => {
   const renderBooks = (books) => {
     booksList.innerHTML = "";
     books.forEach((book) => {
+      const bookCoverUrl =
+        book.formats["image/jpeg"] || "./assets/book-cover.jpg"; // Use a default cover if not available
+      const bookTitle = book.title;
+      const bookAuthors = book.authors.length
+        ? book.authors.map((author) => author.name).join(", ")
+        : "Unknown Author";
+      const bookGenres = book.subjects.length
+        ? book.subjects.join(", ")
+        : "Unknown Genre";
       const bookElement = document.createElement("div");
-      bookElement.classList.add("book");
+      bookElement.classList.add("card-container");
       bookElement.innerHTML = `
-        <img src=""default-cover.jpg"}" alt="${book.title}">
-        <h3>${book.title}</h3>
-        <p>Author: ${book.author}</p>
-        <p>Genre: ${book.genre || "Unknown"}</p>
-        <button class="wishlist-btn" data-id="${book.id}">♡ Wishlist</button>
+            <div class="card">
+      <div class="card-img-container">
+        <img
+          class="card-img"
+          src="${bookCoverUrl}"
+          alt="Book Cover of ${bookTitle}"
+        />
+      </div>
+      <div class="card-content">
+        <h5 class="card-title">${bookTitle}</h5> 
+         
+        <div class="author-container">
+          <h5 class="card-text"><strong>Author(s):</strong> ${bookAuthors}</h5>
+          <p class="card-text"><strong>ID:</strong> ${book.id}</p>
+        </div>
+    
+        <p class="card-text">
+       <strong>Genres:</strong> ${bookGenres}
+        </p>
+        <button class="cssbuttons-io" data-id="${book.id}">
+          <span>
+            Wishlist
+            <img
+              class="wishlist-img"
+              src="./assets/white-love.png"
+              alt="Wishlist icon"
+          /></span>
+        </button>
+      </div>
+    </div>
       `;
       booksList.appendChild(bookElement);
     });
@@ -80,4 +115,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initial book fetch
   fetchBooks(currentPage);
+});
+
+const dropdown = document.querySelectorAll(".dropdown-btn");
+
+// Обработчик события клика на документе
+document.addEventListener("click", (e) => {
+  // Проверяем, было ли нажатие вне элемента выпадающего списка
+  if (!e.target.closest(".dropdown-btn")) {
+    // Закрываем все выпадающие списки
+    dropdown.forEach((item) => {
+      item.closest(".dropdown").classList.remove("active");
+    });
+  }
+});
+
+dropdown.forEach((item) => {
+  item.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    // Закрываем все другие выпадающие списки
+    dropdown.forEach((otherItem) => {
+      if (otherItem !== item) {
+        otherItem.closest(".dropdown").classList.remove("active");
+      }
+    });
+
+    // Открываем/закрываем текущий выпадающий список
+    item.closest(".dropdown").classList.toggle("active");
+  });
 });
