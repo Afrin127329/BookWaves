@@ -189,6 +189,35 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  const populateGenres = (genres) => {
+    const genreDropdown = document.getElementById("genre-dropdown");
+    genreDropdown.innerHTML = "";
+
+    // Create and append genre items to the dropdown
+    genres.forEach((genre) => {
+      const listItem = document.createElement("li");
+      listItem.textContent = genre;
+      listItem.classList.add("dropdown-item");
+
+      listItem.addEventListener("click", () => {
+        filterBooksByGenre(genre);
+      });
+
+      genreDropdown.appendChild(listItem);
+    });
+  };
+
+  const filterBooksByGenre = (selectedGenre) => {
+    const allBooks = JSON.parse(localStorage.getItem("books")) || [];
+
+    // Filter the books that include the selected genre in their subjects
+    const filteredBooks = allBooks.filter((book) =>
+      book.subjects.includes(selectedGenre)
+    );
+    books = filteredBooks;
+    renderBooks();
+  };
+
   // Initial book fetch or load from localStorage
   fetchBooks(currentPage);
 });
@@ -221,15 +250,3 @@ dropdown.forEach((item) => {
     item.closest(".dropdown").classList.toggle("active");
   });
 });
-
-const populateGenres = (genres) => {
-  const genreDropdown = document.getElementById("genre-dropdown");
-  genreDropdown.innerHTML = ""; // Clear previous items
-
-  // Create and append genre items to the dropdown
-  genres.forEach((genre) => {
-    const listItem = document.createElement("li");
-    listItem.textContent = genre; // Set the genre text
-    genreDropdown.appendChild(listItem);
-  });
-};
