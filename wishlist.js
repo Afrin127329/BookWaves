@@ -1,15 +1,10 @@
 // Function to render wishlisted books
 const renderWishlistBooks = () => {
   const wishlistContainer = document.getElementById("wishlist-books");
-  wishlistContainer.innerHTML = ""; // Clear existing books
+  wishlistContainer.innerHTML = "";
 
-  // Get wishlist from localStorage
   const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-
-  // Get all books from localStorage (or fetch them if needed)
   const allBooks = JSON.parse(localStorage.getItem("books"));
-
-  // Filter books based on wishlist
   const wishlistedBooks = allBooks.filter((book) =>
     wishlist.includes(book.id.toString())
   );
@@ -75,16 +70,9 @@ const removeWishlistEvents = () => {
     button.addEventListener("click", (e) => {
       const bookId = e.target.closest("button").getAttribute("data-id");
 
-      // Get wishlist from localStorage
       let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-
-      // Remove book from wishlist
       wishlist = wishlist.filter((id) => id !== bookId);
-
-      // Update localStorage
       localStorage.setItem("wishlist", JSON.stringify(wishlist));
-
-      // Re-render the wishlist
       renderWishlistBooks();
     });
   });
