@@ -579,10 +579,17 @@ section {
     justify-content: flex-start !important;
   }
 
-  .dropdown-content {}
 
   .navbar .menu-items {
     align-items: baseline
+  }
+
+  .search-bar-container input {
+    width: 13rem !important;
+  }
+
+  .navbar .menu-items li {
+    margin-top: 1rem;
   }
 }
 
@@ -654,4 +661,23 @@ section {
 
 .dropdown.active .dropdown-content {
   display: flex;
+}
+
+
+/* search box on navbar  */
+.menu-items .search-bar-container {
+  margin-left: 1rem;
+  border: 2px solid #4a00e0;
+  border-radius: 10px;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.search-bar-container input {
+  width: 16rem;
+  height: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 10px;
+  outline: none;
 }

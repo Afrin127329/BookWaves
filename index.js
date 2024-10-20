@@ -145,3 +145,5 @@ dropdown.forEach((item) => {
     item.closest(".dropdown").classList.toggle("active");
   });
 });
+
+// search btn logic
