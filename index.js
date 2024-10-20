@@ -98,30 +98,37 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalPages = Math.ceil(totalBooks / booksPerPage);
     pageNumbersContainer.innerHTML = `Page ${currentPage} of ${totalPages}`;
 
+    // Disable the previous button if on the first page
     prevPageBtn.disabled = currentPage === 1;
+
+    // Disable the next button if on the last page
     nextPageBtn.disabled = currentPage === totalPages;
 
-    const newPrevPageBtn = prevPageBtn.cloneNode(true);
-    const newNextPageBtn = nextPageBtn.cloneNode(true);
+    // Reset button event listeners
+    prevPageBtn.removeEventListener("click", handlePrevPage);
+    nextPageBtn.removeEventListener("click", handleNextPage);
 
-    prevPageBtn.replaceWith(newPrevPageBtn);
-    nextPageBtn.replaceWith(newNextPageBtn);
+    // Add event listeners to handle page changes
+    prevPageBtn.addEventListener("click", handlePrevPage);
+    nextPageBtn.addEventListener("click", handleNextPage);
+  };
 
-    newPrevPageBtn.addEventListener("click", () => {
-      if (currentPage > 1) {
-        currentPage--;
-        renderBooks();
-        renderPagination(books.length);
-      }
-    });
+  // Event handlers for pagination
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderBooks();
+      renderPagination(books.length);
+    }
+  };
 
-    newNextPageBtn.addEventListener("click", () => {
-      if (currentPage < totalPages) {
-        currentPage++;
-        renderBooks();
-        renderPagination(books.length);
-      }
-    });
+  const handleNextPage = () => {
+    const totalPages = Math.ceil(books.length / booksPerPage);
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderBooks();
+      renderPagination(books.length);
+    }
   };
 
   // Handle search functionality (from localStorage)
