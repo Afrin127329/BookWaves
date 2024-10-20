@@ -136,16 +136,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchTerm = e.target.value.toLowerCase();
 
     // Filter books from localStorage
-    const allBooks = JSON.parse(localStorage.getItem("books"));
+    // Get books from localStorage
+    const allBooks = JSON.parse(localStorage.getItem("books")) || [];
+
     const regex = new RegExp(searchTerm, "i");
     const filteredBooks = allBooks.filter((book) => {
-      return (
-        regex.test(book.title) ||
-        book.authors.some((author) => regex.test(author.name)) ||
-        book.subjects.some((subject) => regex.test(subject))
+      const matchesTitle = regex.test(book.title);
+      const matchesAuthor = book.authors.some((author) =>
+        regex.test(author.name)
       );
+      const matchesSubject = book.subjects.some((subject) =>
+        regex.test(subject)
+      );
+
+      return matchesTitle || matchesAuthor || matchesSubject;
     });
 
+    console.log(filteredBooks);
     // Update book list
     books = filteredBooks;
     currentPage = 1;
