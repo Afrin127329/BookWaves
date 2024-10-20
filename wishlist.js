@@ -112,7 +112,6 @@ dropdown.forEach((item) => {
 });
 
 const populateGenres = (genres) => {
-  console.log("called");
   const genreDropdown = document.getElementById("genre-dropdown");
   genreDropdown.innerHTML = ""; // Clear previous items
 
@@ -120,6 +119,66 @@ const populateGenres = (genres) => {
   genres.forEach((genre) => {
     const listItem = document.createElement("li");
     listItem.textContent = genre; // Set the genre text
+    listItem.classList.add("dropdown-item"); // Add a class for styling
+
+    // Add event listener to filter books by genre
+    listItem.addEventListener("click", () => {
+      filterBooksByGenre(genre); // Call the function to filter books
+    });
+
     genreDropdown.appendChild(listItem);
+  });
+};
+
+// Function to filter books by the selected genre
+const filterBooksByGenre = (selectedGenre) => {
+  const allBooks = JSON.parse(localStorage.getItem("books")) || [];
+
+  // Filter the books that include the selected genre in their subjects
+  const filteredBooks = allBooks.filter((book) =>
+    book.subjects.includes(selectedGenre)
+  );
+
+  // Render the filtered books
+  renderBooks(filteredBooks);
+};
+
+const renderBooks = (books) => {
+  const booksContainer = document.getElementById("wishlist-books");
+  booksContainer.innerHTML = "";
+
+  books.forEach((book) => {
+    const bookCoverUrl =
+      book.formats["image/jpeg"] || "./assets/book-cover.jpg";
+    const bookTitle = book.title;
+    const bookAuthors = book.authors.length
+      ? book.authors.map((author) => author.name).join(", ")
+      : "Unknown Author";
+    const bookGenres = book.subjects.length
+      ? book.subjects.join(", ")
+      : "Unknown Genre";
+    const bookElement = document.createElement("div");
+    bookElement.classList.add("card-container");
+    bookElement.innerHTML = `
+      <div class="card">
+        <div class="card-img-container">
+          <img
+            class="card-img"  
+            src="${bookCoverUrl}"
+            alt="Book Cover of ${bookTitle}"  
+          />
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">${bookTitle}</h3>  
+          <p class="card-text">
+            <strong>Authors:</strong> ${bookAuthors}
+          </p>
+          <p class="card-text">  
+            <strong>Genres:</strong> ${bookGenres}
+          </p>
+        </div>
+      </div>  
+    `;
+    booksContainer.appendChild(bookElement);
   });
 };
