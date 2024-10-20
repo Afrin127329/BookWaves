@@ -603,20 +603,30 @@ section {
   top: calc(100% + 5px);
   border: 1px solid #E8EDF9;
   background: #ffffff;
-  padding: 10px 20px;
   left: 0;
-  border-radius: 6px;
+  border-radius: 10px;
   right: auto;
   box-shadow: 1px 6px 18px -12px #0000006e;
   flex-direction: column;
   gap: 10px 0;
-  min-width: 100%;
+  width: 100%;
   font-family: sans-serif;
   cursor: pointer;
 }
 
-.dropdown-content:hover {
-  background: #2e25256e;
+.dropdown-content li {
+  list-style: none;
+  padding: 10px 20px;
+  width: max-content;
+  max-width: 15rem;
+  text-wrap: pretty;
+  border-radius: 10px;
+}
+
+.dropdown-content li:hover {
+  background: #4e45456e;
+  transition: all 0.3s ease-in-out;
+
 }
 
 .dropdown.active .dropdown-content {
