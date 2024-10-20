@@ -113,17 +113,16 @@ dropdown.forEach((item) => {
 
 const populateGenres = (genres) => {
   const genreDropdown = document.getElementById("genre-dropdown");
-  genreDropdown.innerHTML = ""; // Clear previous items
+  genreDropdown.innerHTML = "";
 
   // Create and append genre items to the dropdown
   genres.forEach((genre) => {
     const listItem = document.createElement("li");
-    listItem.textContent = genre; // Set the genre text
-    listItem.classList.add("dropdown-item"); // Add a class for styling
+    listItem.textContent = genre;
+    listItem.classList.add("dropdown-item");
 
-    // Add event listener to filter books by genre
     listItem.addEventListener("click", () => {
-      filterBooksByGenre(genre); // Call the function to filter books
+      filterBooksByGenre(genre);
     });
 
     genreDropdown.appendChild(listItem);
