@@ -8,6 +8,7 @@ const renderWishlistBooks = () => {
   const wishlistedBooks = allBooks.filter((book) =>
     wishlist.includes(book.id.toString())
   );
+  populateGenres(allBooks[0].subjects);
 
   // Render each book in the wishlist
   wishlistedBooks.forEach((book) => {
@@ -80,3 +81,45 @@ const removeWishlistEvents = () => {
 
 // Render the wishlist on page load
 document.addEventListener("DOMContentLoaded", renderWishlistBooks);
+
+const dropdown = document.querySelectorAll(".dropdown-btn");
+
+// Обработчик события клика на документе
+document.addEventListener("click", (e) => {
+  // Проверяем, было ли нажатие вне элемента выпадающего списка
+  if (!e.target.closest(".dropdown-btn")) {
+    // Закрываем все выпадающие списки
+    dropdown.forEach((item) => {
+      item.closest(".dropdown").classList.remove("active");
+    });
+  }
+});
+
+dropdown.forEach((item) => {
+  item.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    // Закрываем все другие выпадающие списки
+    dropdown.forEach((otherItem) => {
+      if (otherItem !== item) {
+        otherItem.closest(".dropdown").classList.remove("active");
+      }
+    });
+
+    // Открываем/закрываем текущий выпадающий список
+    item.closest(".dropdown").classList.toggle("active");
+  });
+});
+
+const populateGenres = (genres) => {
+  console.log("called");
+  const genreDropdown = document.getElementById("genre-dropdown");
+  genreDropdown.innerHTML = ""; // Clear previous items
+
+  // Create and append genre items to the dropdown
+  genres.forEach((genre) => {
+    const listItem = document.createElement("li");
+    listItem.textContent = genre; // Set the genre text
+    genreDropdown.appendChild(listItem);
+  });
+};
